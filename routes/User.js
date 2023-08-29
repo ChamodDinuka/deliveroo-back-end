@@ -15,7 +15,7 @@ router.post('/user', UserModel, async (req, res) => {
             return response.fail(req, res, response.messages.invalid_params, { errors: errors.array() });
         }
         const {
-            first_name, last_name, email, password
+            first_name, last_name,role, email, password
         } = req.body;
 
         const salt = await bcrypt.genSalt(10);
@@ -24,6 +24,7 @@ router.post('/user', UserModel, async (req, res) => {
         let newUser = {
             first_name,
             last_name,
+            role,
             email,
             password :encryptedPassword,
             createdAt: moment().format('YYYY-MM-DD HH:mm'),
@@ -32,7 +33,6 @@ router.post('/user', UserModel, async (req, res) => {
         const insertUser = await CreateUser(newUser);
         response.success(req, res, insertUser, 'Restaurant created successfull');
     } catch (err) {
-        console.log(err)
         response.fail(req, res, response.messages.server_error, 'Internal server error');
     }
 });

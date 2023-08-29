@@ -3,13 +3,14 @@ const db = require('../configurations/db');
 exports.CreateUser = (newUser) => {
     return new Promise((resolve, reject) => {
         const query =
-        'INSERT INTO user (first_name,last_name,email,password,createdAt,updatedAt) VALUES (?,?,?,?,?,?)';
+        'INSERT INTO user (first_name,last_name,role,email,password,createdAt,updatedAt) VALUES (?,?,?,?,?,?)';
         db.query(
             query,
             [
                 newUser.first_name,
                 newUser.last_name,
                 newUser.email,
+                newUser.role,
                 newUser.password,
                 newUser.createdAt,
                 newUser.updatedAt,
